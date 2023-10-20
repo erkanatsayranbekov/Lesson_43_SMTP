@@ -24,9 +24,10 @@ class SignUpWithVerification(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        user = self.object
+        user = self.object  
         user.is_active = False
         user.save()
+        self.send_verification_email(self.object)
         return response
 
 
